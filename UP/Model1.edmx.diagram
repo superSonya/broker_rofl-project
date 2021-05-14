@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="25965f808098410bbbe9ae14aceaa4f3" Name="Diagram1">
+        <EntityTypeShape EntityType="broker_copyModel.Broker" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="broker_copyModel.Client" Width="1.5" PointX="8" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="broker_copyModel.Deal" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="broker_copyModel.Manager" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="broker_copyModel.Offers" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="broker_copyModel.Role" Width="1.5" PointX="5.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="broker_copyModel.Sub_Offers" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="broker_copyModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <AssociationConnector Association="broker_copyModel.FK_Broker_Manager" ManuallyRouted="false" />
+        <AssociationConnector Association="broker_copyModel.FK_Offers_Broker" ManuallyRouted="false" />
+        <AssociationConnector Association="broker_copyModel.FK_Client_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="broker_copyModel.FK_Offers_Sub_Offers" ManuallyRouted="false" />
+        <AssociationConnector Association="broker_copyModel.FK_Deal_Offers" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
