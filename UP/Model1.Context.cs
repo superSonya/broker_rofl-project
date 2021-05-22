@@ -30,7 +30,6 @@ namespace UP
         public virtual DbSet<Deal> Deal { get; set; }
         public virtual DbSet<Manager> Manager { get; set; }
         public virtual DbSet<Offers> Offers { get; set; }
-        public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<Sub_Offers> Sub_Offers { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     }

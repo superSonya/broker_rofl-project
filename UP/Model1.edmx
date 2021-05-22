@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Хранилище broker_copyModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Хранилище broker_copyModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Broker">
           <Key>
             <PropertyRef Name="ID" />
@@ -48,13 +48,6 @@
           <Property Name="Price" Type="int" />
           <Property Name="ID_Client" Type="int" />
         </EntityType>
-        <EntityType Name="Role">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="16" />
-        </EntityType>
         <EntityType Name="Sub_Offers">
           <Key>
             <PropertyRef Name="ID" />
@@ -86,20 +79,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Client_Role">
-          <End Role="Role" Type="Self.Role" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Client" Type="Self.Client" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Role">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Client">
-              <PropertyRef Name="ID_Role" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Deal_Offers">
           <End Role="Offers" Type="Self.Offers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -126,6 +105,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Offers_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Offers" Type="Self.Offers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Offers">
+              <PropertyRef Name="ID_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Offers_Sub_Offers">
           <End Role="Sub_Offers" Type="Self.Sub_Offers" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -146,16 +139,11 @@
           <EntitySet Name="Deal" EntityType="Self.Deal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Manager" EntityType="Self.Manager" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Offers" EntityType="Self.Offers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sub_Offers" EntityType="Self.Sub_Offers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Broker_Manager" Association="Self.FK_Broker_Manager">
             <End Role="Manager" EntitySet="Manager" />
             <End Role="Broker" EntitySet="Broker" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Client_Role" Association="Self.FK_Client_Role">
-            <End Role="Role" EntitySet="Role" />
-            <End Role="Client" EntitySet="Client" />
           </AssociationSet>
           <AssociationSet Name="FK_Deal_Offers" Association="Self.FK_Deal_Offers">
             <End Role="Offers" EntitySet="Offers" />
@@ -165,12 +153,17 @@
             <End Role="Broker" EntitySet="Broker" />
             <End Role="Offers" EntitySet="Offers" />
           </AssociationSet>
+          <AssociationSet Name="FK_Offers_Client" Association="Self.FK_Offers_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Offers" EntitySet="Offers" />
+          </AssociationSet>
           <AssociationSet Name="FK_Offers_Sub_Offers" Association="Self.FK_Offers_Sub_Offers">
             <End Role="Sub_Offers" EntitySet="Sub_Offers" />
             <End Role="Offers" EntitySet="Offers" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="broker_copyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -193,15 +186,15 @@
           <Property Name="ID_Role" Type="Int32" />
           <Property Name="Password" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
           <Property Name="Login" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Role" Relationship="Self.FK_Client_Role" FromRole="Client" ToRole="Role" />
+          <NavigationProperty Name="Offers" Relationship="Self.FK_Offers_Client" FromRole="Client" ToRole="Offers" />
         </EntityType>
         <EntityType Name="Deal">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Time" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Offers" Relationship="broker_copyModel.FK_Deal_Offers" FromRole="Deal" ToRole="Offers" />
+          <NavigationProperty Name="Offers" Relationship="Self.FK_Deal_Offers" FromRole="Deal" ToRole="Offers" />
         </EntityType>
         <EntityType Name="Manager">
           <Key>
@@ -222,16 +215,9 @@
           <Property Name="Price" Type="Int32" />
           <Property Name="ID_Client" Type="Int32" />
           <NavigationProperty Name="Broker" Relationship="Self.FK_Offers_Broker" FromRole="Offers" ToRole="Broker" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Offers_Client" FromRole="Offers" ToRole="Client" />
+          <NavigationProperty Name="Deal" Relationship="Self.FK_Deal_Offers" FromRole="Offers" ToRole="Deal" />
           <NavigationProperty Name="Sub_Offers" Relationship="Self.FK_Offers_Sub_Offers" FromRole="Offers" ToRole="Sub_Offers" />
-          <NavigationProperty Name="Deal" Relationship="broker_copyModel.FK_Deal_Offers" FromRole="Offers" ToRole="Deal" />
-        </EntityType>
-        <EntityType Name="Role">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_Client_Role" FromRole="Role" ToRole="Client" />
         </EntityType>
         <EntityType Name="Sub_Offers">
           <Key>
@@ -277,17 +263,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Client_Role">
-          <End Role="Role" Type="Self.Role" Multiplicity="0..1">
+        <Association Name="FK_Offers_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <End Role="Offers" Type="Self.Offers" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Role">
+            <Principal Role="Client">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Client">
-              <PropertyRef Name="ID_Role" />
+            <Dependent Role="Offers">
+              <PropertyRef Name="ID_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deal_Offers">
+          <End Role="Offers" Type="Self.Offers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Deal" Type="Self.Deal" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Offers">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Deal">
+              <PropertyRef Name="ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -311,7 +311,6 @@
           <EntitySet Name="Deal" EntityType="Self.Deal" />
           <EntitySet Name="Manager" EntityType="Self.Manager" />
           <EntitySet Name="Offers" EntityType="Self.Offers" />
-          <EntitySet Name="Role" EntityType="Self.Role" />
           <EntitySet Name="Sub_Offers" EntityType="Self.Sub_Offers" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <AssociationSet Name="FK_Broker_Manager" Association="Self.FK_Broker_Manager">
@@ -322,33 +321,19 @@
             <End Role="Broker" EntitySet="Broker" />
             <End Role="Offers" EntitySet="Offers" />
           </AssociationSet>
-          <AssociationSet Name="FK_Client_Role" Association="Self.FK_Client_Role">
-            <End Role="Role" EntitySet="Role" />
+          <AssociationSet Name="FK_Offers_Client" Association="Self.FK_Offers_Client">
             <End Role="Client" EntitySet="Client" />
+            <End Role="Offers" EntitySet="Offers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deal_Offers" Association="Self.FK_Deal_Offers">
+            <End Role="Offers" EntitySet="Offers" />
+            <End Role="Deal" EntitySet="Deal" />
           </AssociationSet>
           <AssociationSet Name="FK_Offers_Sub_Offers" Association="Self.FK_Offers_Sub_Offers">
             <End Role="Sub_Offers" EntitySet="Sub_Offers" />
             <End Role="Offers" EntitySet="Offers" />
           </AssociationSet>
-          <AssociationSet Name="FK_Deal_Offers" Association="broker_copyModel.FK_Deal_Offers">
-            <End Role="Offers" EntitySet="Offers" />
-            <End Role="Deal" EntitySet="Deal" />
-          </AssociationSet>
         </EntityContainer>
-        <Association Name="FK_Deal_Offers">
-          <End Type="broker_copyModel.Offers" Role="Offers" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="broker_copyModel.Deal" Role="Deal" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Offers">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Deal">
-              <PropertyRef Name="ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -378,8 +363,8 @@
           <EntitySetMapping Name="Deal">
             <EntityTypeMapping TypeName="broker_copyModel.Deal">
               <MappingFragment StoreEntitySet="Deal">
-                <ScalarProperty Name="Time" ColumnName="Time" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -400,14 +385,6 @@
                 <ScalarProperty Name="ID_Broker" ColumnName="ID_Broker" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="ID_Client" ColumnName="ID_Client" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Role">
-            <EntityTypeMapping TypeName="broker_copyModel.Role">
-              <MappingFragment StoreEntitySet="Role">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

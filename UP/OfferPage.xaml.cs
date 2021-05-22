@@ -23,7 +23,6 @@ namespace UP
         public static int id_offer;
         public OfferPage()
         {
-            SizeChanged += OfferPage_SizeChanged; ;
             InitializeComponent();
             datagrid_offer.ItemsSource = MainWindow.db.Offers.ToList();
 
@@ -35,29 +34,6 @@ namespace UP
             }
         }
 
-        private void OfferPage_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            Height = 800; Width = 300; WindowWidth = 300; WindowHeight = 800;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var query = MainWindow.db.Offers.ToList().Find(q=> q.ID_Client == null);
-            query.ID_Client = MainWindow.id_client;
-
-            Deal deal = new Deal() {
-
-                ID = query.ID,
-                Time = DateTime.Now
-            };
-            MainWindow.db.Deal.Add(deal);
-            MainWindow.db.SaveChanges();
-
-            datagrid_offer.ItemsSource = MainWindow.db.Offers.ToList().Where(q => q.ID_Client == null);
-
-            MessageBox.Show($"Для дальнейшего оформления обратитесь к менеджеру и сообщите ему свой код: {query.ID}");
-        }
-
         private void edit_Click(object sender, RoutedEventArgs e)
         {
             var sel = datagrid_offer.SelectedItem as Offers;
@@ -65,8 +41,6 @@ namespace UP
             NavigationService.Navigate(new EditManagerPanel());
 
         }
-
-       
 
         private void delete_Click(object sender, RoutedEventArgs e)
         {
@@ -89,6 +63,25 @@ namespace UP
             {
                 datagrid_offer.ItemsSource = MainWindow.db.Offers.ToList();
             }
+        }
+
+        private void add_Click(object sender, RoutedEventArgs e)
+        {
+            var query = MainWindow.db.Offers.ToList().Find(q => q.ID_Client == null);
+            query.ID_Client = MainWindow.id_client;
+
+            Deal deal = new Deal()
+            {
+
+                ID = query.ID,
+                Time = DateTime.Now
+            };
+            MainWindow.db.Deal.Add(deal);
+            MainWindow.db.SaveChanges();
+
+            datagrid_offer.ItemsSource = MainWindow.db.Offers.ToList().Where(q => q.ID_Client == null);
+
+            MessageBox.Show($"Для дальнейшего оформления обратитесь к менеджеру и сообщите ему свой код: {query.ID}");
         }
     }
 }
