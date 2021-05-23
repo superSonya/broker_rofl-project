@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -28,21 +29,36 @@ namespace UP
 
         private void registration_Click(object sender, RoutedEventArgs e)
         {
-            if (login.Text == "" || password.Text == "")
+            try
             {
-                Empty("*Ошибка, заполните поля!");
+                if (login.Text == "" || password.Text == "")
+                {
+                    Empty("*Ошибка, заполните поля!");
+                }
+                else
+                {
+                    db.Client.Add(new Client()
+                    {
+
+                        Login = login.Text.Trim(),
+                        Password = password.Text.Trim()
+
+                    });
+
+                    var query = db.Client.ToList().Find(q => q.Login == login.Text && q.Password == password.Text);
+                    if (query != null)
+                    {
+                        MessageBox.Show("Такой пользователь уже существует!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Пользователь успешно зарегистрирован!");
+                        db.SaveChanges();
+                    }
+                }
             }
-            else
-            {
-                db.Client.Add(new Client() { 
-                
-                    Login = login.Text.Trim().TrimStart().TrimEnd(),
-                    Password = password.Text.Trim().TrimStart().TrimEnd()
-                
-                });
-                MessageBox.Show("Пользователь успешно зарегистрирован!");
-                db.SaveChanges();
-            }
+            catch (DbEntityValidationException) { MessageBox.Show("Проверьте правильность данных, между символами не должно быть пробелов!"); }
+
         }
         public void Empty(string message) { error.Content = message; }
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -59,7 +75,7 @@ namespace UP
                 login.Text = login.Text.Remove(login.Text.Length - 1);
                 login.SelectionStart = login.Text.Length;
             }
-            if (login.Text.Contains(@"\") || login.Text.Contains(@"-"))
+            if (login.Text.Contains(@"\") || login.Text.Contains(@"-") || login.Text.Contains(" "))
             {
                 Empty("*Вводите только строковые символы!");
                 login.Text = login.Text.Remove(login.Text.Length - 1);
@@ -81,7 +97,7 @@ namespace UP
                 password.Text = password.Text.Remove(password.Text.Length - 1);
                 password.SelectionStart = password.Text.Length;
             }
-            if (password.Text.Contains(@"\") || login.Text.Contains(@"-"))
+            if (password.Text.Contains(@"\") || login.Text.Contains(@"-") || password.Text.Contains(" "))
             {
                 Empty("*Вводите только строковые символы!");
                 password.Text = password.Text.Remove(password.Text.Length - 1);

@@ -63,7 +63,7 @@ namespace UP
                 priceBox.Text = priceBox.Text.Remove(priceBox.Text.Length - 1);
                 priceBox.SelectionStart = priceBox.Text.Length;
             }
-            if (priceBox.Text.Contains(@"\") || priceBox.Text.Contains(@"-"))
+            if (priceBox.Text.Contains(@"\") || priceBox.Text.Contains(@"-") || priceBox.Text.Contains(" "))
             {
                 MessageBox.Show("Ввод только числовых значений!");
                 priceBox.Text = priceBox.Text.Remove(priceBox.Text.Length - 1);
