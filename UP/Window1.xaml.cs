@@ -29,22 +29,15 @@ namespace UP
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
             var sel = combo.SelectedItem as Sub_Offers;
 
-            Offers offers = new Offers()
+            MainWindow.db.Offers.Add(new Offers()
             {
-
                 ID_Broker = MainWindow.id_broker,
                 ID_SubOffers = sel.ID,
                 Price = int.Parse(priceBox.Text),
                 Condition = false,
-
-            };
-
-
-
-            MainWindow.db.Offers.Add(offers);
+            });
             MainWindow.db.SaveChanges();
 
             datagrid_addoffer.ItemsSource = MainWindow.db.Offers.ToList().Where(q => q.ID_Client == null);

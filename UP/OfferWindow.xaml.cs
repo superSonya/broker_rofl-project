@@ -46,22 +46,7 @@ namespace UP
             Height = 330; Width = 450;
         }
 
-        private void edit_Click(object sender, RoutedEventArgs e)
-        {
-            var sel = datagrid_offer.SelectedItem as Offers;
-            id_offer = sel.ID;
-            //NavigationService.Navigate(new EditManagerPanel());
 
-        }
-
-        private void delete_Click(object sender, RoutedEventArgs e)
-        {
-            var sel = datagrid_offer.SelectedItem as Offers;
-            MainWindow.db.Offers.Remove(sel);
-            MainWindow.db.SaveChanges();
-
-            datagrid_offer.ItemsSource = MainWindow.db.Offers.ToList();
-        }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
