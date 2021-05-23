@@ -146,21 +146,6 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn x:Name="edit">
-                            <DataGridTemplateColumn.CellTemplate >
-                                <DataTemplate>
-                                    <Button x:Name="edit" Content="Изменить" Click="edit_Click"></Button>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn x:Name="delete">
-                            <DataGridTemplateColumn.CellTemplate >
-                                <DataTemplate>
-                                    <Button x:Name="delete" Content="Удалить" Click="delete_Click"></Button>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>
