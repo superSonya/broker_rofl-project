@@ -26,8 +26,6 @@ namespace UP
 
             if (MainWindow.query_client != null)
             {
-                edit.Visibility = Visibility.Hidden;
-                delete.Visibility = Visibility.Hidden;
                 addOffer.Visibility = Visibility.Hidden;
                 datagrid_offer.ItemsSource = MainWindow.db.Offers.ToList().Where(q => q.ID_Client == null);
             }
@@ -35,8 +33,6 @@ namespace UP
             {
                 datagrid_offer.ItemsSource = MainWindow.db.Offers.ToList().Where(q => q.ID_Broker == MainWindow.query_broker.ID);
                 add.Visibility = Visibility.Hidden;
-                edit.Visibility = Visibility.Hidden;
-                delete.Visibility = Visibility.Hidden;
                 added.Visibility = Visibility.Hidden;
             }
         }
@@ -52,9 +48,6 @@ namespace UP
         {
             if (MainWindow.query_client != null)
             {
-
-                edit.Visibility = Visibility.Hidden;
-                delete.Visibility = Visibility.Hidden;
                 datagrid_offer.ItemsSource = MainWindow.db.Offers.ToList().Where(q => q.ID_Client == null);
             }
             else if (MainWindow.query_broker != null)
