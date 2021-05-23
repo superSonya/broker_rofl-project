@@ -47,18 +47,15 @@ namespace UP
             {
                 Empty("");
 
-
-
                 query_client = MainWindow.db.Client.ToList().Find(q => q.Login == login.Text && q.Password == password.Text);
                 query_broker = MainWindow.db.Broker.ToList().Find(q => q.Login == login.Text && q.Password == password.Text);
                 query_manager = MainWindow.db.Manager.ToList().Find(q => q.Login == login.Text && q.Password == password.Text);
                 if (query_client != null)
                 {
-                    myframe.NavigationService.Navigate(new OfferPage());
+                    new OfferWindow().Show();
+                    Close();
 
                     id_client = query_client.ID;
-
-                    Hidden();
                 }
                 else
                 {
@@ -67,11 +64,10 @@ namespace UP
 
                 if (query_broker != null)
                 {
-                    myframe.NavigationService.Navigate(new OfferPage());
-
+                    new OfferWindow().Show();
+                    Close();
                     id_broker = query_broker.ID;
 
-                    Hidden();
                 }
                 else
                 {
@@ -94,15 +90,12 @@ namespace UP
             }
         }
 
-        public void Hidden()
-        {
-            Stack.Visibility = Visibility.Hidden;
-        }
 
         private void exit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
+
         #region Focus
         private void login_GotFocus(object sender, RoutedEventArgs e)
         {

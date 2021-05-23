@@ -187,8 +187,8 @@
     
     <Border CornerRadius="16" Background="#e4bad4" Opacity="0.97">
         <StackPanel Orientation="Horizontal">
-            
-            <DataGrid Margin="20" x:Name="datagrid_addoffer" Width="180" HorizontalAlignment="Left" AutoGenerateColumns="False" Style="{DynamicResource DataGridStyle1}">
+
+            <DataGrid IsReadOnly="True"  Margin="20" x:Name="datagrid_addoffer" Width="180" HorizontalAlignment="Left" AutoGenerateColumns="False" Style="{DynamicResource DataGridStyle1}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="id" Binding="{Binding ID}" />
                     <DataGridTextColumn Header="name" Binding="{Binding Sub_Offers.Name}"/>
@@ -203,7 +203,7 @@
                     <Label Content="Выбор предложения"/>
                     <ComboBox x:Name="combo" DisplayMemberPath="Name" FontFamily="Google Sans"/>
                     <Label Content="Цена"/>
-                    <TextBox x:Name="priceBox" Style="{DynamicResource TextBoxStyle1}" />
+                    <TextBox x:Name="priceBox" Style="{DynamicResource TextBoxStyle1}" TextChanged="priceBox_TextChanged" />
                     <Button Margin="0,10,0,0" Content="Добавить" Click="Button_Click" Style="{DynamicResource ButtonStyle1}"/>
                     <Button Margin="0,10,0,0" Content="Закрыть" Click="Button_Click_1" Style="{DynamicResource ButtonStyle1}"/>
                 </StackPanel>

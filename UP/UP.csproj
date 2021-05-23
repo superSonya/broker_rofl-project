@@ -64,8 +64,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AddedOffersClient.xaml.cs">
-      <DependentUpon>AddedOffersClient.xaml</DependentUpon>
+    <Compile Include="AddedOffersClientWindow.xaml.cs">
+      <DependentUpon>AddedOffersClientWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Broker.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -75,9 +75,6 @@
     </Compile>
     <Compile Include="Deal.cs">
       <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EditManagerPanel.xaml.cs">
-      <DependentUpon>EditManagerPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Manager.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -100,11 +97,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
-    <Compile Include="OfferPage.xaml.cs">
-      <DependentUpon>OfferPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Offers.cs">
       <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OfferWindow.xaml.cs">
+      <DependentUpon>OfferWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sub_Offers.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -115,11 +112,7 @@
     <Compile Include="Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
-    <Page Include="AddedOffersClient.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="EditManagerPanel.xaml">
+    <Page Include="AddedOffersClientWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -139,7 +132,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="OfferPage.xaml">
+    <Page Include="OfferWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

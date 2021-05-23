@@ -136,7 +136,7 @@
         <StackPanel Margin="30">
             <Label Content="Одобрение предложений" FontFamily="Google Sans" FontWeight="Bold" FontSize="16" Foreground="#e8eae6"/>
             <StackPanel Orientation="Horizontal">
-                <DataGrid x:Name="datagrid" Height="200" AutoGenerateColumns="False" Width="380" HorizontalAlignment="Left" IsSynchronizedWithCurrentItem="False" Style="{DynamicResource DataGridStyle1}" >
+                <DataGrid IsReadOnly="True" x:Name="datagrid" Height="200" AutoGenerateColumns="False" Width="380" HorizontalAlignment="Left" IsSynchronizedWithCurrentItem="False" Style="{DynamicResource DataGridStyle1}" >
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Номер" Binding="{Binding ID}"/>
                         <DataGridTextColumn Header="Предложения" Binding="{Binding Sub_Offers.Name}"/>

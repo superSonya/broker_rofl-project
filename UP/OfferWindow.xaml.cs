@@ -10,18 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace UP
 {
     /// <summary>
-    /// Логика взаимодействия для OfferPage.xaml
+    /// Логика взаимодействия для OfferWindow.xaml
     /// </summary>
-    public partial class OfferPage : Page
+    public partial class OfferWindow : Window
     {
         public static int id_offer;
-        public OfferPage() 
+        public OfferWindow()
         {
             InitializeComponent();
 
@@ -34,14 +33,12 @@ namespace UP
             }
             if (MainWindow.query_broker != null)
             {
-                datagrid_offer.ItemsSource = MainWindow.db.Offers.ToList().Where(q=> q.ID_Broker == MainWindow.query_broker.ID);
+                datagrid_offer.ItemsSource = MainWindow.db.Offers.ToList().Where(q => q.ID_Broker == MainWindow.query_broker.ID);
                 add.Visibility = Visibility.Hidden;
                 edit.Visibility = Visibility.Hidden;
                 delete.Visibility = Visibility.Hidden;
                 added.Visibility = Visibility.Hidden;
-            } 
-            
-            //datagrid_offer.ItemsSource = MainWindow.db.Offers.ToList();
+            }
         }
 
         private void Myframe_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -53,7 +50,7 @@ namespace UP
         {
             var sel = datagrid_offer.SelectedItem as Offers;
             id_offer = sel.ID;
-            NavigationService.Navigate(new EditManagerPanel());
+            //NavigationService.Navigate(new EditManagerPanel());
 
         }
 
@@ -75,7 +72,7 @@ namespace UP
                 delete.Visibility = Visibility.Hidden;
                 datagrid_offer.ItemsSource = MainWindow.db.Offers.ToList().Where(q => q.ID_Client == null);
             }
-            else if(MainWindow.query_broker != null)
+            else if (MainWindow.query_broker != null)
             {
                 datagrid_offer.ItemsSource = MainWindow.db.Offers.ToList().Where(q => q.ID_Broker == MainWindow.query_broker.ID);
             }
@@ -89,7 +86,6 @@ namespace UP
 
             Deal deal = new Deal()
             {
-
                 ID = query.ID,
                 TimeOffers = DateTime.Now
             };
@@ -104,16 +100,20 @@ namespace UP
         private void exit_Click(object sender, RoutedEventArgs e)
         {
             new MainWindow().Show();
+            Close();
         }
 
         private void addOffer_Click(object sender, RoutedEventArgs e)
         {
             new Window1().Show();
+            Close();
         }
 
         private void added_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new AddedOffersClient());
+            new AddedOffersClientWindow().Show();
+            Close();
+           
         }
     }
 }

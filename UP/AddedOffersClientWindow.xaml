@@ -1,13 +1,17 @@
-﻿<Page x:Class="UP.OfferPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:UP"
-      mc:Ignorable="d" 
-      Height="450" Width="330"
-      Title="OfferPage">
-    <Page.Resources>
+﻿<Window x:Class="UP.AddedOffersClientWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UP"
+        mc:Ignorable="d"
+        Title="AddedOffersClientWindow"  Height="450" Width="330"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Background="Transparent"
+        ResizeMode="NoResize"
+        AllowsTransparency="True">
+    <Window.Resources>
         <Style x:Key="DataGridStyle1" TargetType="{x:Type DataGrid}">
             <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
@@ -123,47 +127,26 @@
                 </Setter.Value>
             </Setter>
         </Style>
-    </Page.Resources>
+    </Window.Resources>
+
 
     <Border CornerRadius="16" Background="#e4bad4" Opacity="0.97">
 
         <StackPanel Margin="30">
-            <Label x:Name="title" Content="Список предложений" FontFamily="Google Sans" FontWeight="Bold" FontSize="16" Foreground="#e8eae6"/>
+            <Label Content="Добавленные предложения" FontFamily="Google Sans" FontWeight="Bold" FontSize="16" Foreground="#e8eae6"/>
             <StackPanel Orientation="Horizontal">
-                <DataGrid x:Name="datagrid_offer" Height="200" AutoGenerateColumns="False" Width="300" HorizontalAlignment="Left" IsSynchronizedWithCurrentItem="False" Style="{DynamicResource DataGridStyle1}" >
+                <DataGrid IsReadOnly="True"  x:Name="datagrid" Height="200" AutoGenerateColumns="False" Width="300" HorizontalAlignment="Left" IsSynchronizedWithCurrentItem="False" Style="{DynamicResource DataGridStyle1}" >
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Номер" Binding="{Binding ID}"/>
                         <DataGridTextColumn Header="Предложения" Binding="{Binding Sub_Offers.Name}"/>
                         <DataGridTextColumn Header="Цена" Binding="{Binding Price}"/>
-                        <DataGridTemplateColumn x:Name="add">
-                            <DataGridTemplateColumn.CellTemplate >
-                                <DataTemplate>
-                                    <Button x:Name="add" Content="Добавить" Click="add_Click"></Button>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn x:Name="edit">
-                            <DataGridTemplateColumn.CellTemplate >
-                                <DataTemplate>
-                                    <Button x:Name="edit" Content="Изменить" Click="edit_Click"></Button>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn x:Name="delete">
-                            <DataGridTemplateColumn.CellTemplate >
-                                <DataTemplate>
-                                    <Button x:Name="delete" Content="Удалить" Click="delete_Click"></Button>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                       
+                        <DataGridTextColumn Header="Состояние" Binding="{Binding Condition}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>
-            <Button Height="30" Margin="0,10,0,0" Content="Обновить" FontFamily="Google Sans" BorderBrush="Transparent" Foreground="#e8eae6" Background="#DB98C2" Click="Button_Click_1" Style="{DynamicResource ButtonStyle1}"/>
-            <Button x:Name="addOffer" Height="30" Margin="0,10,0,0" Content="Добавить" FontFamily="Google Sans" BorderBrush="Transparent" Foreground="#e8eae6" Background="#DB98C2" Click="addOffer_Click" Style="{DynamicResource ButtonStyle1}"/>
-            <Button x:Name="added" Height="30" Margin="0,10,0,0" Content="Добавленные" FontFamily="Google Sans" BorderBrush="Transparent" Foreground="#e8eae6" Background="#DB98C2" Click="added_Click" Style="{DynamicResource ButtonStyle1}"/>
-            <Button x:Name="exit" Height="30" Margin="0,10,0,0" Content="Назад" FontFamily="Google Sans" BorderBrush="Transparent" Foreground="#e8eae6" Background="#DB98C2" Click="exit_Click" Style="{DynamicResource ButtonStyle1}"/>
+
+            <Button x:Name="exit" Height="30" Margin="0,10,0,0" Content="Назад" FontFamily="Google Sans" BorderBrush="Transparent" Foreground="#e8eae6" Background="#DB98C2" Click="exit_Click_1" Style="{DynamicResource ButtonStyle1}"/>
         </StackPanel>
     </Border>
-</Page>
+
+</Window>
