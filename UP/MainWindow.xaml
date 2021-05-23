@@ -135,9 +135,10 @@
     <Border CornerRadius="16" Background="#e4bad4" Opacity="0.97">
         <StackPanel>
             
-            <Frame x:Name="myframe"/>
+            <Frame x:Name="myframe" NavigationUIVisibility="Hidden" />
 
             <StackPanel x:Name="Stack">
+                
                 <Label x:Name="error" Foreground="#923365" Margin="45,70,0,0" Height="30"/>
                 <Label Content="Логин"/>
                 <TextBox x:Name="login" Style="{DynamicResource TextBoxStyle1}"  GotFocus="login_GotFocus" TextChanged="login_TextChanged" />

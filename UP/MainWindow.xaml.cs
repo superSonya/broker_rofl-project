@@ -21,7 +21,7 @@ namespace UP
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static broker_copyEntities db = new broker_copyEntities();
+        public static broker_copyEntities1 db = new broker_copyEntities1();
         public static int id_client;
         public static int id_broker;
         public static int id_manager;
@@ -34,6 +34,7 @@ namespace UP
             InitializeComponent();
         }
 
+
         public void Empty(string message) { error.Content = message; }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -45,49 +46,51 @@ namespace UP
             else
             {
                 Empty("");
-            }
 
 
-            query_client = MainWindow.db.Client.ToList().Find(q => q.Login == login.Text && q.Password == password.Text);
-            query_broker = MainWindow.db.Broker.ToList().Find(q => q.Login == login.Text && q.Password == password.Text);
-            query_manager = MainWindow.db.Manager.ToList().Find(q => q.Login == login.Text && q.Password == password.Text);
-            if (query_client != null)
-            {
-                myframe.NavigationService.Navigate(new OfferPage());
 
-                id_client = query_client.ID;
+                query_client = MainWindow.db.Client.ToList().Find(q => q.Login == login.Text && q.Password == password.Text);
+                query_broker = MainWindow.db.Broker.ToList().Find(q => q.Login == login.Text && q.Password == password.Text);
+                query_manager = MainWindow.db.Manager.ToList().Find(q => q.Login == login.Text && q.Password == password.Text);
+                if (query_client != null)
+                {
+                    myframe.NavigationService.Navigate(new OfferPage());
 
-                Hidden();
-            }
-            else
-            {
-                Empty("*Такого пользователя не существует!");
-            }
+                    id_client = query_client.ID;
 
-            if (query_broker != null)
-            {
-                myframe.NavigationService.Navigate(new AddOffer_Broker());
+                    Hidden();
+                }
+                else
+                {
+                    Empty("*Такого пользователя не существует!");
+                }
 
-                id_broker = query_broker.ID;
+                if (query_broker != null)
+                {
+                    myframe.NavigationService.Navigate(new OfferPage());
 
-                Hidden();
-            }
-            else
-            {
-                Empty("*Такого пользователя не существует!");
-            }
+                    id_broker = query_broker.ID;
 
-            if (query_manager != null)
-            {
-                myframe.NavigationService.Navigate(new ManagerPage());
+                    Hidden();
+                }
+                else
+                {
+                    Empty("*Такого пользователя не существует!");
+                }
 
-                id_manager = query_manager.ID;
+                if (query_manager != null)
+                {
 
-                Hidden();
-            }
-            else
-            {
-                Empty("*Такого пользователя не существует!");
+
+                    new ManagerWindow().Show();
+                    Close();
+                    id_manager = query_manager.ID;
+
+                }
+                else
+                {
+                    Empty("*Такого пользователя не существует!");
+                }
             }
         }
 
@@ -157,5 +160,6 @@ namespace UP
             }
         }
         #endregion
+
     }
 }

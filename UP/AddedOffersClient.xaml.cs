@@ -16,24 +16,21 @@ using System.Windows.Shapes;
 namespace UP
 {
     /// <summary>
-    /// Логика взаимодействия для ManagerPage.xaml
+    /// Логика взаимодействия для AddedOffersClient.xaml
     /// </summary>
-    public partial class ManagerPage : Page
+    public partial class AddedOffersClient : Page
     {
-        public ManagerPage()
+        public AddedOffersClient()
         {
             InitializeComponent();
-
-            combo.SelectionChanged += Combo_SelectionChanged;
+            datagrid.ItemsSource = MainWindow.db.Offers.Where(q=> q.ID_Client == MainWindow.id_client).ToList();
         }
 
-        private void Combo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        
+
+        private void exit_Click_1(object sender, RoutedEventArgs e)
         {
-            if (combo.SelectedIndex == 0)
-            {
-                myframe.NavigationService.Navigate(new OfferPage());
-                stack.Visibility = Visibility.Hidden;
-            }
+            NavigationService.GoBack();
         }
     }
 }

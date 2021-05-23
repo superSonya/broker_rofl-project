@@ -15,7 +15,9 @@ namespace UP
     public partial class Deal
     {
         public int ID { get; set; }
-        public Nullable<System.DateTime> Time { get; set; }
+        public Nullable<System.DateTime> TimeOffers { get; set; }
+        public Nullable<System.DateTime> BeginTime { get; set; }
+        public Nullable<System.DateTime> EndTime { get; set; }
     
         public virtual Offers Offers { get; set; }
     }

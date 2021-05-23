@@ -13,10 +13,10 @@ namespace UP
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class broker_copyEntities : DbContext
+    public partial class broker_copyEntities1 : DbContext
     {
-        public broker_copyEntities()
-            : base("name=broker_copyEntities")
+        public broker_copyEntities1()
+            : base("name=broker_copyEntities1")
         {
         }
     

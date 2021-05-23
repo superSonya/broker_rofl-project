@@ -19,6 +19,7 @@ namespace UP
         public Nullable<int> ID_Broker { get; set; }
         public Nullable<int> Price { get; set; }
         public Nullable<int> ID_Client { get; set; }
+        public Nullable<bool> Condition { get; set; }
     
         public virtual Broker Broker { get; set; }
         public virtual Client Client { get; set; }

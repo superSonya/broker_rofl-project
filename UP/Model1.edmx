@@ -28,7 +28,9 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="Time" Type="datetime" />
+          <Property Name="TimeOffers" Type="datetime" />
+          <Property Name="BeginTime" Type="datetime" />
+          <Property Name="EndTime" Type="datetime" />
         </EntityType>
         <EntityType Name="Manager">
           <Key>
@@ -47,6 +49,7 @@
           <Property Name="ID_Broker" Type="int" />
           <Property Name="Price" Type="int" />
           <Property Name="ID_Client" Type="int" />
+          <Property Name="Condition" Type="bit" />
         </EntityType>
         <EntityType Name="Sub_Offers">
           <Key>
@@ -193,7 +196,9 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Time" Type="DateTime" Precision="3" />
+          <Property Name="TimeOffers" Type="DateTime" Precision="3" />
+          <Property Name="BeginTime" Type="DateTime" Precision="3" />
+          <Property Name="EndTime" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Offers" Relationship="Self.FK_Deal_Offers" FromRole="Deal" ToRole="Offers" />
         </EntityType>
         <EntityType Name="Manager">
@@ -214,6 +219,7 @@
           <Property Name="ID_Broker" Type="Int32" />
           <Property Name="Price" Type="Int32" />
           <Property Name="ID_Client" Type="Int32" />
+          <Property Name="Condition" Type="Boolean" />
           <NavigationProperty Name="Broker" Relationship="Self.FK_Offers_Broker" FromRole="Offers" ToRole="Broker" />
           <NavigationProperty Name="Client" Relationship="Self.FK_Offers_Client" FromRole="Offers" ToRole="Client" />
           <NavigationProperty Name="Deal" Relationship="Self.FK_Deal_Offers" FromRole="Offers" ToRole="Deal" />
@@ -305,7 +311,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="broker_copyEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="broker_copyEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Broker" EntityType="Self.Broker" />
           <EntitySet Name="Client" EntityType="Self.Client" />
           <EntitySet Name="Deal" EntityType="Self.Deal" />
@@ -339,7 +345,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище broker_copyModelContainer" CdmEntityContainer="broker_copyEntities">
+        <EntityContainerMapping StorageEntityContainer="Хранилище broker_copyModelContainer" CdmEntityContainer="broker_copyEntities1">
           <EntitySetMapping Name="Broker">
             <EntityTypeMapping TypeName="broker_copyModel.Broker">
               <MappingFragment StoreEntitySet="Broker">
@@ -364,7 +370,9 @@
             <EntityTypeMapping TypeName="broker_copyModel.Deal">
               <MappingFragment StoreEntitySet="Deal">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="TimeOffers" ColumnName="TimeOffers" />
+                <ScalarProperty Name="BeginTime" ColumnName="BeginTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -385,6 +393,7 @@
                 <ScalarProperty Name="ID_Broker" ColumnName="ID_Broker" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="ID_Client" ColumnName="ID_Client" />
+                <ScalarProperty Name="Condition" ColumnName="Condition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

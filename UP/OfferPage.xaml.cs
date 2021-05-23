@@ -21,17 +21,32 @@ namespace UP
     public partial class OfferPage : Page
     {
         public static int id_offer;
-        public OfferPage()
+        public OfferPage() 
         {
             InitializeComponent();
-            datagrid_offer.ItemsSource = MainWindow.db.Offers.ToList();
 
             if (MainWindow.query_client != null)
             {
                 edit.Visibility = Visibility.Hidden;
                 delete.Visibility = Visibility.Hidden;
+                addOffer.Visibility = Visibility.Hidden;
                 datagrid_offer.ItemsSource = MainWindow.db.Offers.ToList().Where(q => q.ID_Client == null);
             }
+            if (MainWindow.query_broker != null)
+            {
+                datagrid_offer.ItemsSource = MainWindow.db.Offers.ToList().Where(q=> q.ID_Broker == MainWindow.query_broker.ID);
+                add.Visibility = Visibility.Hidden;
+                edit.Visibility = Visibility.Hidden;
+                delete.Visibility = Visibility.Hidden;
+                added.Visibility = Visibility.Hidden;
+            } 
+            
+            //datagrid_offer.ItemsSource = MainWindow.db.Offers.ToList();
+        }
+
+        private void Myframe_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            Height = 330; Width = 450;
         }
 
         private void edit_Click(object sender, RoutedEventArgs e)
@@ -55,26 +70,28 @@ namespace UP
         {
             if (MainWindow.query_client != null)
             {
+
                 edit.Visibility = Visibility.Hidden;
                 delete.Visibility = Visibility.Hidden;
                 datagrid_offer.ItemsSource = MainWindow.db.Offers.ToList().Where(q => q.ID_Client == null);
             }
-            else
+            else if(MainWindow.query_broker != null)
             {
-                datagrid_offer.ItemsSource = MainWindow.db.Offers.ToList();
+                datagrid_offer.ItemsSource = MainWindow.db.Offers.ToList().Where(q => q.ID_Broker == MainWindow.query_broker.ID);
             }
         }
 
         private void add_Click(object sender, RoutedEventArgs e)
         {
-            var query = MainWindow.db.Offers.ToList().Find(q => q.ID_Client == null);
+
+            var query = datagrid_offer.SelectedItem as Offers;
             query.ID_Client = MainWindow.id_client;
 
             Deal deal = new Deal()
             {
 
                 ID = query.ID,
-                Time = DateTime.Now
+                TimeOffers = DateTime.Now
             };
             MainWindow.db.Deal.Add(deal);
             MainWindow.db.SaveChanges();
@@ -82,6 +99,21 @@ namespace UP
             datagrid_offer.ItemsSource = MainWindow.db.Offers.ToList().Where(q => q.ID_Client == null);
 
             MessageBox.Show($"Для дальнейшего оформления обратитесь к менеджеру и сообщите ему свой код: {query.ID}");
+        }
+
+        private void exit_Click(object sender, RoutedEventArgs e)
+        {
+            new MainWindow().Show();
+        }
+
+        private void addOffer_Click(object sender, RoutedEventArgs e)
+        {
+            new Window1().Show();
+        }
+
+        private void added_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new AddedOffersClient());
         }
     }
 }

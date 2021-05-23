@@ -10,21 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace UP
 {
     /// <summary>
-    /// Логика взаимодействия для AddOffer_Broker.xaml
+    /// Логика взаимодействия для Window1.xaml
     /// </summary>
-    public partial class AddOffer_Broker : Page
+    public partial class Window1 : Window
     {
-        public AddOffer_Broker()
+        public Window1()
         {
-            InitializeComponent();
-
-
+            InitializeComponent(); 
             datagrid_addoffer.ItemsSource = MainWindow.db.Offers.ToList().Where(q => q.ID_Client == null);
             combo.ItemsSource = MainWindow.db.Sub_Offers.ToList();
         }
@@ -34,7 +31,8 @@ namespace UP
 
             var sel = combo.SelectedItem as Sub_Offers;
 
-            Offers offers = new Offers() {
+            Offers offers = new Offers()
+            {
 
                 ID_Broker = MainWindow.id_broker,
                 ID_SubOffers = sel.ID,
@@ -47,6 +45,11 @@ namespace UP
             MainWindow.db.SaveChanges();
 
             datagrid_addoffer.ItemsSource = MainWindow.db.Offers.ToList().Where(q => q.ID_Client == null);
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
