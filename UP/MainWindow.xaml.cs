@@ -123,7 +123,7 @@ namespace UP
                 login.Text = login.Text.Remove(login.Text.Length - 1);
                 login.SelectionStart = login.Text.Length;
             }
-            if (login.Text.Contains(@"\") || login.Text.Contains(@"-"))
+            if (login.Text.Contains(@"\") || login.Text.Contains(@"-") || login.Text.Contains(" "))
             {
                 Empty("*Вводите только строковые символы!");
                 login.Text = login.Text.Remove(login.Text.Length - 1);
@@ -145,7 +145,7 @@ namespace UP
                 password.Text = password.Text.Remove(password.Text.Length - 1);
                 password.SelectionStart = password.Text.Length;
             }
-            if (password.Text.Contains(@"\") || password.Text.Contains(@"-"))
+            if (password.Text.Contains(@"\") || password.Text.Contains(@"-") || password.Text.Contains(" "))
             {
                 Empty("*Вводите только строковые символы!");
                 password.Text = password.Text.Remove(password.Text.Length - 1);

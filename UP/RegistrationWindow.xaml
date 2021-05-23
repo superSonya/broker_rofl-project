@@ -136,9 +136,9 @@
             <StackPanel Margin="0,0,0,0" >
                 <Label x:Name="error" Foreground="#923365" Margin="45,40,0,0" Height="30"/>
                 <Label Content="Придумайте логин"/>
-                <TextBox x:Name="login" Style="{DynamicResource TextBoxStyle1}" TextChanged="TextBox_TextChanged" GotFocus="login_GotFocus"/>
+                <TextBox x:Name="login" Style="{DynamicResource TextBoxStyle1}" TextChanged="TextBox_TextChanged" GotFocus="login_GotFocus" MaxLength="8" />
                 <Label Content="Придумайте пароль" Margin="65,10,0,0"/>
-                <TextBox x:Name="password" Style="{DynamicResource TextBoxStyle1}" TextChanged="TextBox_TextChanged_1" GotFocus="password_GotFocus" />
+                <TextBox x:Name="password" Style="{DynamicResource TextBoxStyle1}" TextChanged="TextBox_TextChanged_1" GotFocus="password_GotFocus"  MaxLength="8" />
                 <Button Height="40" Width="220" Content="Зарегистрироваться" Click="registration_Click" x:Name="registration" Margin="0,20,0,0" Style="{DynamicResource ButtonStyle1}"/>
             </StackPanel>
         </StackPanel>
