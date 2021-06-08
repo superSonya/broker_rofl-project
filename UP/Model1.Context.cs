@@ -13,10 +13,10 @@ namespace UP
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class broker_copyEntities : DbContext
+    public partial class broker_copyEntities1 : DbContext
     {
-        public broker_copyEntities()
-            : base("name=broker_copyEntities")
+        public broker_copyEntities1()
+            : base("name=broker_copyEntities1")
         {
         }
     
@@ -30,7 +30,6 @@ namespace UP
         public virtual DbSet<Deal> Deal { get; set; }
         public virtual DbSet<Manager> Manager { get; set; }
         public virtual DbSet<Offers> Offers { get; set; }
-        public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<Sub_Offers> Sub_Offers { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     }

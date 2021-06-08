@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,7 +21,7 @@ namespace UP
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static broker_copyEntities db = new broker_copyEntities();
+        public static broker_copyEntities1 db = new broker_copyEntities1();
         public static int id_client;
         public static int id_broker;
         public static int id_manager;
@@ -33,44 +34,125 @@ namespace UP
             InitializeComponent();
         }
 
+
+        public void Empty(string message) { error.Content = message; }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            query_client = MainWindow.db.Client.ToList().Find(q => q.Login == login.Text && q.Password == password.Text);
-            query_broker = MainWindow.db.Broker.ToList().Find(q => q.Login == login.Text && q.Password == password.Text);
-            query_manager = MainWindow.db.Manager.ToList().Find(q => q.Login == login.Text && q.Password == password.Text);
-            if (query_client != null)
+            if (login.Text == "" || password.Text == "")
             {
-                myframe.NavigationService.Navigate(new OfferPage());
-
-                id_client = query_client.ID;
-
-
-                Hidden();
+                Empty("*Ошибка, заполните поля!");
             }
-            if (query_broker != null)
+            else
             {
-                myframe.NavigationService.Navigate(new AddOffer_Broker());
+                Empty("");
 
-                id_broker = query_broker.ID;
+                query_client = MainWindow.db.Client.ToList().Find(q => q.Login == login.Text && q.Password == password.Text);
+                query_broker = MainWindow.db.Broker.ToList().Find(q => q.Login == login.Text && q.Password == password.Text);
+                query_manager = MainWindow.db.Manager.ToList().Find(q => q.Login == login.Text && q.Password == password.Text);
+                if (query_client != null)
+                {
+                    new OfferWindow().Show();
+                    Close();
+
+                    id_client = query_client.ID;
+                }
+                else
+                {
+                    Empty("*Такого пользователя не существует!");
+                }
+
+                if (query_broker != null)
+                {
+                    new OfferWindow().Show();
+                    Close();
+                    id_broker = query_broker.ID;
+
+                }
+                else
+                {
+                    Empty("*Такого пользователя не существует!");
+                }
+
+                if (query_manager != null)
+                {
 
 
-                Hidden();
-            }
+                    new ManagerWindow().Show();
+                    Close();
+                    id_manager = query_manager.ID;
 
-            if (query_manager != null)
-            {
-                myframe.NavigationService.Navigate(new ManagerPage());
-
-                id_manager = query_manager.ID;
-
-
-                Hidden();
+                }
+                else
+                {
+                    Empty("*Такого пользователя не существует!");
+                }
             }
         }
 
-        public void Hidden()
+
+        private void exit_Click(object sender, RoutedEventArgs e)
         {
-            Stack.Visibility = Visibility.Hidden;
+            this.Close();
         }
+
+        #region Focus
+        private void login_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Empty("");
+        }
+
+        private void password_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Empty("");
+        }
+        #endregion
+
+        #region TextChanged
+        private void login_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (Regex.IsMatch(login.Text, "[^А-Я-а-я---a-z-A-Z- -]"))
+            {
+                Empty("*Вводите только строковые символы!");
+                login.Text = login.Text.Remove(login.Text.Length - 1);
+                login.SelectionStart = login.Text.Length;
+            }
+            if (Regex.IsMatch(login.Text, @"^\W"))
+            {
+                Empty("*Вводите только строковые символы!");
+                login.Text = login.Text.Remove(login.Text.Length - 1);
+                login.SelectionStart = login.Text.Length;
+            }
+            if (login.Text.Contains(@"\") || login.Text.Contains(@"-") || login.Text.Contains(" "))
+            {
+                Empty("*Вводите только строковые символы!");
+                login.Text = login.Text.Remove(login.Text.Length - 1);
+                login.SelectionStart = login.Text.Length;
+            }
+        }
+
+        private void password_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (Regex.IsMatch(password.Text, "[^А-Я-а-я---a-z-A-Z- -]"))
+            {
+                Empty("*Вводите только строковые символы!");
+                password.Text = password.Text.Remove(password.Text.Length - 1);
+                password.SelectionStart = password.Text.Length;
+            }
+            if (Regex.IsMatch(password.Text, @"^\W"))
+            {
+                Empty("*Вводите только строковые символы!");
+                password.Text = password.Text.Remove(password.Text.Length - 1);
+                password.SelectionStart = password.Text.Length;
+            }
+            if (password.Text.Contains(@"\") || password.Text.Contains(@"-") || password.Text.Contains(" "))
+            {
+                Empty("*Вводите только строковые символы!");
+                password.Text = password.Text.Remove(password.Text.Length - 1);
+                password.SelectionStart = password.Text.Length;
+            }
+        }
+        #endregion
+
     }
 }
